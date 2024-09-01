@@ -12,24 +12,26 @@ async function getImage() {
   }
   else {
     let img = document.querySelector('img');
+
+    try {
     let response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=iwDojf87COWt8FYV2BwDI9VSOIa05ZNj&s=${text.value}`, {mode: 'cors'})
     let json = await response.json();
-    json.then(function(response) {
-      if (response.meta.status == 200) {
+      if (json.meta.status == 200) {
       if(!img) {
         img = document.createElement('img');
         img.alt = "user-generated-image";
         document.querySelector("body").appendChild(img);
       }
-      img.src = response.data.images.original.url;
+      img.src = json.data.images.original.url;
     }    
     else {
       showErrorMsg();
     }
-    })
-    .catch((error) => {
+  }
+  catch(error){
+      console.log(error);
       showErrorMsg();
-    });
+    }
   }
 }
 
