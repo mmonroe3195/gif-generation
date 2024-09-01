@@ -1,32 +1,39 @@
+function showErrorMsg() {
+  document.querySelector("#message").textContent = "Error Displaying Image";
+  let img = document.querySelector('img');
+    if(img) {
+      img.remove();
+    }
+}
 function getImage() {
   let text = document.querySelector('#gifText');
   if(text.value == "") {
     alert("please enter some valid text before submitting");
   }
   else {
-    const img = document.querySelector('img');
-    fetch(`https://api.giphy.com/v1/gifs/translate?api_key=iwDojf87COWt8FYV2BwDI9VSOIa05ZNj&s=${text.value}`, {mode: 'cors'})
+    let img = document.querySelector('img');
+    fetch(`https://api.giphy.com/v1/gifs/translate?api_key=AiwDojf87COWt8FYV2BwDI9VSOIa05ZNj&s=${text.value}`, {mode: 'cors'})
     .then(function(response) {
       return response.json();
     })
     .then(function(response) {
-      if (response.meta.status != 200) {
+      if (response.meta.status == 200) {
       if(!img) {
-        let img = document.createElement('img');
+        img = document.createElement('img');
         img.alt = "user-generated-image";
-        body.insertBefore(img, body.firstChild);
-      }}
+        document.querySelector("body").appendChild(img);
+      }
       img.src = response.data.images.original.url;
-    
+    }    
+    else {
+      showErrorMsg();
+    }
     })
     .catch((error) => {console.log(error);
-      document.querySelector("#message").textContent = "Error Displaying Image";
-      if(img) {
-        img.remove();
-      }
+      showErrorMsg();
     });
   }
 }
 
-document.querySelector("#getgif").addEventListener("click", getImage)
+document.querySelector("#getgif").addEventListener("click", getImage);
 
