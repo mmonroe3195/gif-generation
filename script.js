@@ -12,7 +12,7 @@ function getImage() {
   }
   else {
     let img = document.querySelector('img');
-    fetch(`https://api.giphy.com/v1/gifs/translate?api_key=AiwDojf87COWt8FYV2BwDI9VSOIa05ZNj&s=${text.value}`, {mode: 'cors'})
+    fetch(`https://api.giphy.com/v1/gifs/translate?api_key=iwDojf87COWt8FYV2BwDI9VSOIa05ZNj&s=${text.value}`, {mode: 'cors'})
     .then(function(response) {
       return response.json();
     })
